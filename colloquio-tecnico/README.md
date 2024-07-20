@@ -28,15 +28,49 @@ Ho creato l'account free di AWS e ho iniziato a mettere mano alle Lambda functio
 in seguito ho visto DynamoDB.
 ### Mercoledi
 Ho creato delle Api con API gateway. Ho iniziato a studiare la documetazion di Serverless Freamework per capire cosa facesse e come utilizzarlo, ho avviato un primo progetto.
+
+Installato la cli Serverless
+```bash
+npm i serverless -g
+```
+Creato la variabile d'ambiente serverless
+
+```bash
+serverless update
+```
+
+Creato la cartella del progetto colloquio-tecnico
+creto la repo e avviato serverless
+```bash
+git init colloquio-tecnico
+serverless 
+```
+
+Ho selezioanto il template adatto (Lambda, DymanoDB e Flask) e ho installato le dipendeze e i pacchetti mancanti
+
+```bash
+npm install
+pip install boto3
+pip install Flask
+pip install flask_serverless
+sls plugin install serverless-wsgi   
+```
+
 ### Giovedi
 Ho dedicato tutta la giornata a studiarmi Flask e a mettere mano a python dato che non lo usavo da qualche mese.
 ### Venerdi e Sabato
 Ho messo mano al codice e ho creare le api. Per semplicità ho testato le api con Postman.
+
+
 
 ## Difficolta riscontarte
 È stato il primo progetto in cui mi sono cimentato nel mondo e nei servizi AWS, e so che ho ancora una montagna di nozioni e difficoltà da superare.
 Questa settimana è stato un continuo di alti e bassi ma mi hanno fatto capire che comunque questo mondo vasto ha molto da darmi e io ho molta voglia di dimostralo.  
 
 ## Conclusione
-Il progetto, pur non risultando funzionante, mi ha posto numerose sfide personali che mi hanno spinto a perseverare e a cercare la soluzione.
+Il progetto, pur non risultando funzionante, mi ha posto numerose sfide personali che mi hanno spinto ad andare avanti e a cercare la soluzione.
 Non so come sarà valutato il mio lavoro, ma spero che risalti l'impegno profuso.
+
+
+
+
