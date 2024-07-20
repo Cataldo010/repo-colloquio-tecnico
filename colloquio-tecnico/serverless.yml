@@ -1,0 +1,68 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: cataldo
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: api-colloquio-tecnico
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: colloquio-tecnico
+
+stages:
+  default:
+    params:
+      tableName: "users-table-${sls:stage}"
+
+plugins:
+  - serverless-wsgi
+  - serverless-python-requirements
+
+custom:
+  wsgi:
+    app: app.app
+
+provider:
+  name: aws
+  runtime: python3.12
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [UsersTable, Arn]
+  environment:
+    USERS_TABLE: ${param:tableName}
+
+functions:
+  api:
+    handler: wsgi_handler.handler
+    events:
+      - http:
+          path: /
+          method: any
+      - http:
+          path: /users
+          method: post
+      - http:
+          path: /users/{user_id}
+          method: get
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${param:tableName}
